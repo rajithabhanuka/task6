@@ -5,7 +5,7 @@
 <body>
    <p style="font-style: italic;">${subject}</p>
    <br>
-   <span>The following has to be submitted : {planId} </span>
+   <span>${text}</span>
    <br>
    <br>
    <span>navigate to Plan : <a href="${backend}">link</a></span>

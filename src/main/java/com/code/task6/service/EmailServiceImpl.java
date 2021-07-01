@@ -41,6 +41,7 @@ public class EmailServiceImpl implements EmailService {
 
             Map<String, Object> model = new HashMap<>();
             model.put("subject", mail.getSubject());
+            model.put("text", "The following has to be submitted : {planId} ");
             model.put("backend", backend.replace("{planId}", "1"));
 
             mail.setModel(model);
