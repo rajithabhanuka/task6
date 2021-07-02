@@ -38,11 +38,12 @@ public class EmailServiceImpl implements EmailService {
         String msg;
 
         try {
+            int planId = 1;
 
             Map<String, Object> model = new HashMap<>();
             model.put("subject", mail.getSubject());
-            model.put("text", "The following has to be submitted : {planId} ");
-            model.put("backend", backend.replace("{planId}", "1"));
+            model.put("text", "The following has to be submitted : "+planId+" ");
+            model.put("backend", backend.replace("{planId}", planId+""));
 
             mail.setModel(model);
 
@@ -125,7 +126,7 @@ public class EmailServiceImpl implements EmailService {
         builder.append("<body>");
         builder.append("<p style=\"font-style: italic;\">" + subject + "</p>");
         builder.append("<br>");
-        builder.append("<span>The following has to be submitted : {planId}</span>");
+        builder.append("<span>The following has to be submitted : 1</span>");
         builder.append("<br>");
         builder.append("<br>");
         builder.append("<span>navigate to Plan : <a href=\"" + backend.replace("{planId}", "1") + "\">link</a></span>");
