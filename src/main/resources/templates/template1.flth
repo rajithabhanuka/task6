@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<head>
-   <title>${subject}</title>
-</head>
-<body>
-   <p style="font-style: italic;">${subject}</p>
-   <br>
-   <span>${text}</span>
-   <br>
-   <br>
-   <span>navigate to Plan : <a href="${backend}">link</a></span>
-   <br>
-   <br>
-</body>
+<html lang="en">
+    <head>
+        <title>${subject}</title>
+    </head>
+    <body>
+        <p style="font-style: italic;">${subject}</p>
+        <br />
+        <span>${text}</span>
+        <br />
+        <br />
+        <span>navigate to Plan : <a href="${backend}">link</a></span>
+        <br />
+        <br />
+    </body>
 </html>

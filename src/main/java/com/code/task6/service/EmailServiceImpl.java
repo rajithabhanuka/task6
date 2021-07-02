@@ -1,6 +1,8 @@
 package com.code.task6.service;
 
 import com.code.task6.dto.EmailDto;
+import com.code.task6.dto.PlanDto;
+import com.code.task6.exception.EmailSenderException;
 import freemarker.template.Configuration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,6 +116,46 @@ public class EmailServiceImpl implements EmailService {
         return msg;
     }
 
+    @Override
+    public String sendEmailWithTemplate(EmailDto mail, List<PlanDto> planDtos) throws EmailSenderException {
+        MimeMessage mimeMessage = emailSender.createMimeMessage();
+        String msg;
+
+        try {
+
+            Map<String, Object> model = new HashMap<>();
+            model.put("subject", mail.getSubject());
+            model.put("raws", planDtos);
+
+            mail.setModel(model);
+
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+
+            helper.setSubject(mail.getSubject());
+            helper.setFrom(mail.getFrom());
+            helper.setTo(mail.getTo());
+
+            mail.setContent(geContentFromFreeMaker(mail.getModel(), mail.getTemplate()));
+
+            helper.setText(mail.getContent(), true);
+
+            emailSender.send(helper.getMimeMessage());
+            msg = "Sent Email";
+
+            log.info("--------------------------------------------------------------------");
+            log.info("MAIL SENT TO : {} || USING TEMPLATE : {} || FIRST ATTEMPT ON: {}", mail.getTo(), mail.getTemplate(), new Date().toString());
+            log.info("--------------------------------------------------------------------");
+
+        } catch (MessagingException e) {
+            log.error("----------------------------------------------------------------------");
+            log.error("FAILED TO SEND EMAIL TO");
+            log.error(e.getMessage());
+            log.error("----------------------------------------------------------------------");
+            msg = "Failed to Send Email";
+        }
+
+        return msg;
+    }
 
     private String processEmailBody(String subject) {
 

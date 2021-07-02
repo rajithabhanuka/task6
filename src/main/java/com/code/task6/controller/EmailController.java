@@ -19,17 +19,27 @@ public class EmailController {
         this.emailExecutorService = emailExecutorService;
     }
 
-    @GetMapping(value = "/mail/send-with-template")
-    public void sendEmailWithTemplate(){
+    @GetMapping(value = "/v1/mail/send-with-template")
+    public void sendEmailWithTemplateV1(){
         try{
-            emailExecutorService.sendEmailWithTemplate();
+            emailExecutorService.sendEmailWithTemplateV1();
         }catch (Exception e){
             log.error("ERROR OCCURRED WHILE SENDING EMAIL WITH TEMPLATE");
         }
 
     }
 
-    @GetMapping(value = "/mail/send-without-template")
+    @GetMapping(value = "/v2/mail/send-with-template")
+    public void sendEmailWithTemplateV2(){
+        try{
+            emailExecutorService.sendEmailWithTemplateV2();
+        }catch (Exception e){
+            log.error("ERROR OCCURRED WHILE SENDING EMAIL WITH TEMPLATE");
+        }
+
+    }
+
+    @GetMapping(value = "/v1/mail/send-without-template")
     public void sendEmailWithoutTemplate(){
         try{
             emailExecutorService.sendEmailWithoutTemplate();

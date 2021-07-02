@@ -4,7 +4,9 @@ import com.code.task6.exception.EmailSenderException;
 
 public interface EmailExecutorService {
 
-    void sendEmailWithTemplate() throws EmailSenderException;
+    void sendEmailWithTemplateV1() throws EmailSenderException;
+
+    void sendEmailWithTemplateV2() throws EmailSenderException;
 
     void sendEmailWithoutTemplate() throws EmailSenderException;
 

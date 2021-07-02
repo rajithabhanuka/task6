@@ -44,13 +44,16 @@
 9. curl commands for test
 
 ```
-curl --location --request GET 'http://localhost:8080/mail/send-with-template'
+curl --location --request GET 'http://localhost:8080/v1/mail/send-with-template'
 ```
 
 ```
-curl --location --request GET 'http://localhost:8080/mail/send-without-template'
+curl --location --request GET 'http://localhost:8080/v2/mail/send-with-template'
 ```
 
+```
+curl --location --request GET 'http://localhost:8080/v1/mail/send-without-template'
+```
 
 
 
