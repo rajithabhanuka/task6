@@ -57,6 +57,9 @@ curl --location --request GET 'http://localhost:8080/v2/users/1/mail/send-with-t
 curl --location --request GET 'http://localhost:8080/v1/mail/send-without-template'
 ```
 
+11. Result
+
+![Optional Text](src/main/resources/static/task6.png)   
 
 
 
