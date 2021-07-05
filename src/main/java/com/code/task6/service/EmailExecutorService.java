@@ -6,7 +6,7 @@ public interface EmailExecutorService {
 
     void sendEmailWithTemplateV1() throws EmailSenderException;
 
-    void sendEmailWithTemplateV2() throws EmailSenderException;
+    void sendEmailWithTemplateV2(int userId) throws EmailSenderException;
 
     void sendEmailWithoutTemplate() throws EmailSenderException;
 

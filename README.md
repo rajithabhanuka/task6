@@ -41,14 +41,16 @@
 
 8. Goto the EmailExecutorServiceImpl class and edit the relevant details
 
-9. curl commands for test
+9. Run the db_script.sql
+
+10. curl commands for test
 
 ```
 curl --location --request GET 'http://localhost:8080/v1/mail/send-with-template'
 ```
 
 ```
-curl --location --request GET 'http://localhost:8080/v2/mail/send-with-template'
+curl --location --request GET 'http://localhost:8080/v2/users/1/mail/send-with-template'
 ```
 
 ```

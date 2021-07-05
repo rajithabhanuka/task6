@@ -3,22 +3,27 @@ package com.code.task6.service;
 import com.code.task6.dto.EmailDto;
 import com.code.task6.dto.PlanDto;
 import com.code.task6.exception.EmailSenderException;
+import com.code.task6.model.PlanEntity;
+import com.code.task6.repository.PlanRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
 public class EmailExecutorServiceImpl implements EmailExecutorService{
 
     private final EmailService emailService;
+    private final PlanRepository planRepository;
 
     @Autowired
-    public EmailExecutorServiceImpl(EmailService emailService) {
+    public EmailExecutorServiceImpl(EmailService emailService,
+                                    PlanRepository planRepository) {
         this.emailService = emailService;
+        this.planRepository = planRepository;
     }
 
     @Override
@@ -30,11 +35,11 @@ public class EmailExecutorServiceImpl implements EmailExecutorService{
     }
 
     @Override
-    public void sendEmailWithTemplateV2() throws EmailSenderException {
+    public void sendEmailWithTemplateV2(int userId) throws EmailSenderException {
 
-        log.info("SENDING PLAN EMAIL WITH TEMPLATE");
+        log.info("SENDING PLAN EMAIL WITH TEMPLATE 2");
 
-        emailService.sendEmailWithTemplate(getEmail("template2.flth"), getPlanDtos());
+        emailService.sendEmailWithTemplate(getEmail("template2.flth"), getPlanDtos(userId));
     }
 
     @Override
@@ -56,28 +61,32 @@ public class EmailExecutorServiceImpl implements EmailExecutorService{
         return mail;
     }
 
-    private List<PlanDto> getPlanDtos() {
+    private List<PlanDto> getPlanDtos(int userId) {
 
-        List<PlanDto> planDtos = new ArrayList<>();
+//        List<PlanDto> planDtos = new ArrayList<>();
+//
+//        PlanDto p1 = new PlanDto();
+//        p1.setPlanLevel("Enterprise Functions > Wells Fargo Technology");
+//        p1.setRole("Monitoring Plan Owner");
+//        p1.setType("REMOVE");
+//
+//        PlanDto p2 = new PlanDto();
+//        p2.setPlanLevel("Enterprise Functions > Legal Department");
+//        p2.setRole("Monitoring Plan Proxy");
+//        p2.setType("REMOVE");
+//
+//        PlanDto p3 = new PlanDto();
+//        p3.setPlanLevel("Enterprise Risk Types > Operational Risk > Information Risk Management");
+//        p3.setRole("Monitoring Activity Owner");
+//        p3.setType("REMOVE");
+//
+//        planDtos.add(p1);
+//        planDtos.add(p2);
+//        planDtos.add(p3);
+//        return planDtos;
 
-        PlanDto p1 = new PlanDto();
-        p1.setPlanLevel("Enterprise Functions > Wells Fargo Technology");
-        p1.setRole("Monitoring Plan Owner");
-        p1.setType("REMOVE");
+        return planRepository.findByUserId(userId).stream().map(PlanEntity::toDto)
+                .collect(Collectors.toList());
 
-        PlanDto p2 = new PlanDto();
-        p2.setPlanLevel("Enterprise Functions > Legal Department");
-        p2.setRole("Monitoring Plan Proxy");
-        p2.setType("REMOVE");
-
-        PlanDto p3 = new PlanDto();
-        p3.setPlanLevel("Enterprise Risk Types > Operational Risk > Information Risk Management");
-        p3.setRole("Monitoring Activity Owner");
-        p3.setType("REMOVE");
-
-        planDtos.add(p1);
-        planDtos.add(p2);
-        planDtos.add(p3);
-        return planDtos;
     }
 }

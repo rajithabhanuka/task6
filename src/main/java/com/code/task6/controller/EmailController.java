@@ -29,12 +29,12 @@ public class EmailController {
 
     }
 
-    @GetMapping(value = "/v2/mail/send-with-template")
-    public void sendEmailWithTemplateV2(){
+    @GetMapping(value = "/v2/users/{userId}/mail/send-with-template")
+    public void sendEmailWithTemplateV2(@PathVariable(value = "userId") int userId){
         try{
-            emailExecutorService.sendEmailWithTemplateV2();
+            emailExecutorService.sendEmailWithTemplateV2(userId);
         }catch (Exception e){
-            log.error("ERROR OCCURRED WHILE SENDING EMAIL WITH TEMPLATE");
+            log.error("ERROR OCCURRED WHILE SENDING EMAIL WITH TEMPLATE v2 {}", e.getLocalizedMessage());
         }
 
     }

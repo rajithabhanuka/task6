@@ -11,4 +11,6 @@ public class PlanDto {
 
     private String type;
 
+    private int userId;
+
 }
