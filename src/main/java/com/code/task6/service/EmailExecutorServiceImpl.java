@@ -39,7 +39,7 @@ public class EmailExecutorServiceImpl implements EmailExecutorService{
 
         log.info("SENDING PLAN EMAIL WITH TEMPLATE 2");
 
-        emailService.sendEmailWithTemplate(getEmail("template2.flth"), getPlanDtos(userId));
+        emailService.sendEmailWithTemplate(getEmail("template2.flth"), getCustomPlanEntity(userId));
     }
 
     @Override
@@ -88,5 +88,9 @@ public class EmailExecutorServiceImpl implements EmailExecutorService{
         return planRepository.findByUserId(userId).stream().map(PlanEntity::toDto)
                 .collect(Collectors.toList());
 
+    }
+
+    private List<PlanRepository.CustomPlanEntity> getCustomPlanEntity(int userId) {
+        return planRepository.findCustomPlanEntity(userId);
     }
 }

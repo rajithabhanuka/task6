@@ -3,6 +3,7 @@ package com.code.task6.service;
 import com.code.task6.dto.EmailDto;
 import com.code.task6.dto.PlanDto;
 import com.code.task6.exception.EmailSenderException;
+import com.code.task6.repository.PlanRepository;
 import freemarker.template.Configuration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,7 +118,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public String sendEmailWithTemplate(EmailDto mail, List<PlanDto> planDtos) throws EmailSenderException {
+    public String sendEmailWithTemplate(EmailDto mail, List<PlanRepository.CustomPlanEntity> customPlanEntities) throws EmailSenderException {
         MimeMessage mimeMessage = emailSender.createMimeMessage();
         String msg;
 
@@ -125,7 +126,7 @@ public class EmailServiceImpl implements EmailService {
 
             Map<String, Object> model = new HashMap<>();
             model.put("subject", mail.getSubject());
-            model.put("raws", planDtos);
+            model.put("raws", customPlanEntities);
 
             mail.setModel(model);
 

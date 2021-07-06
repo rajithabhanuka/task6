@@ -13,10 +13,12 @@ public class PlanEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
-    @Column(name = "plan_level")
-    private String planLevel;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "plan_level", referencedColumnName="id")
+    private HierDimEntity planLevel;
 
     @Column(name = "role")
     private String role;
@@ -26,6 +28,15 @@ public class PlanEntity {
 
     @Column(name = "user_id")
     private int userId;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "action")
+    private String action;
+
+    @Column(name = "version")
+    private Long versionNbr;
 
     public PlanDto toDto(){
         PlanDto dto =  new PlanDto();
